@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 const restaurantRoutes = require('./routes/restaurants');
 app.use('/api/restaurants', restaurantRoutes);
 
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

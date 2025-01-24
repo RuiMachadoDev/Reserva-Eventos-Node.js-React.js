@@ -1,15 +1,26 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 import Home from './pages/Home';
-import Restaurant from './pages/Restaurant';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
     return (
-        <Router>
+        <AuthProvider>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/restaurant/:id" element={<Restaurant />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                    path="/"
+                    element={
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>
+                    }
+                />
             </Routes>
-        </Router>
+        </AuthProvider>
     );
 }
 
