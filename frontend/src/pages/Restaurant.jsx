@@ -4,12 +4,8 @@ import axios from 'axios';
 import API_BASE_URL from '../api/config';
 
 function Restaurant() {
-    const { id } = useParams(); // Obtém o ID do restaurante da URL
-    const [formData, setFormData] = useState({
-        date: '',
-        time: '',
-        people: '',
-    });
+    const { id } = useParams();
+    const [formData, setFormData] = useState({ date: '', time: '', people: '' });
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -24,38 +20,47 @@ function Restaurant() {
             setSuccessMessage('Reserva feita com sucesso!');
             setFormData({ date: '', time: '', people: '' });
         } catch (err) {
-            console.error('Erro ao fazer reserva:', err);
             setErrorMessage('Não foi possível completar a reserva. Tente novamente.');
         }
     };
 
     return (
-        <div>
-            <h1>Faça a sua Reserva</h1>
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="date"
-                    value={formData.date}
-                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    required
-                />
-                <input
-                    type="time"
-                    value={formData.time}
-                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    required
-                />
-                <input
-                    type="number"
-                    placeholder="Número de pessoas"
-                    value={formData.people}
-                    onChange={(e) => setFormData({ ...formData, people: e.target.value })}
-                    required
-                />
-                <button type="submit">Reservar</button>
-            </form>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h1 className="text-2xl font-bold text-center text-blue-600 mb-6">Faça sua Reserva</h1>
+                {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
+                {errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        required
+                        className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-blue-300"
+                    />
+                    <input
+                        type="time"
+                        value={formData.time}
+                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                        required
+                        className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-blue-300"
+                    />
+                    <input
+                        type="number"
+                        placeholder="Número de pessoas"
+                        value={formData.people}
+                        onChange={(e) => setFormData({ ...formData, people: e.target.value })}
+                        required
+                        className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-blue-300"
+                    />
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600"
+                    >
+                        Reservar
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
