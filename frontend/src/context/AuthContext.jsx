@@ -1,21 +1,24 @@
 import { createContext, useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../api/config';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const token = localStorage.getItem('token');
+        return token ? { token } : null;
+    });
 
-    const login = async (email, password) => {
+    const login = async (formData) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', {
-                email,
-                password,
-            });
-            setUser(response.data.token);
-            localStorage.setItem('token', response.data.token);
-        } catch (error) {
-            console.error(error);
+            const response = await axios.post(`${API_BASE_URL}/auth/login`, formData);
+            const token = response.data.token;
+            setUser({ token });
+            localStorage.setItem('token', token);
+        } catch (err) {
+            console.error('Erro ao fazer login:', err);
+            throw err;
         }
     };
 
