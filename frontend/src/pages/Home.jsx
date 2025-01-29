@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 import API_BASE_URL from '../api/config';
 
 function Home() {
+    const { logout } = useContext(AuthContext);
     const [restaurants, setRestaurants] = useState([]);
     const [error, setError] = useState('');
 
@@ -27,7 +29,16 @@ function Home() {
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
-            <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Restaurantes</h1>
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-blue-600">Restaurantes</h1>
+                <button
+                    onClick={logout}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                >
+                    Logout
+                </button>
+            </div>
+
             {error && <p className="text-red-500 text-center mb-4">{error}</p>}
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {restaurants.map((restaurant) => (
