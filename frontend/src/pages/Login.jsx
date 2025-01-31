@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 function Login() {
@@ -31,6 +31,7 @@ function Login() {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
                         className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-blue-300"
+                        autoComplete="off"
                     />
                     <input
                         type="password"
@@ -39,6 +40,7 @@ function Login() {
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
                         className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-blue-300"
+                        autoComplete="off"
                     />
                     <button
                         type="submit"
@@ -47,6 +49,12 @@ function Login() {
                         Login
                     </button>
                 </form>
+                <p className="mt-4 text-center text-gray-600">
+                    Ainda não tem uma conta?{' '}
+                    <Link to="/register" className="text-blue-500 hover:underline">
+                        Registe-se aqui
+                    </Link>
+                </p>
             </div>
         </div>
     );
